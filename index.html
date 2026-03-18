@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aryan Rane — Portfolio</title>
+    <meta name="description" content="Portfolio of Aryan Rane — B.Tech CSE (Data Science) student, developer, and creative builder." />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+    <header id="main-header">
+        <nav>
+            <a href="#" class="logo">Aryan<span>.</span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Say Hello</button>
+        </nav>
+    </header>
+
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section id="hero">
+        <!-- Background image layer -->
+        <div class="hero-bg">
+            <img src="Seaside train station with cat and seagulls.png" alt="Seaside train station with a cat sitting on a quiet road under a blue sky" />
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- Ambient Layers -->
+        <div class="ambient-layer" id="petals-container"></div>
+        <div class="ambient-layer" id="light-particles"></div>
+
+        <!-- Content Card -->
+        <div class="hero-container">
+            <div class="hero-glass-card">
+                <p class="hero-tag">B.Tech CSE (Data Science)</p>
+                <div class="hero-text-wrapper">
+                    <span class="hero-greeting">Hi, I'm</span>
+                    <h1 class="hero-title">
+                        <span class="highlight">Aryan Rane</span>
+                    </h1>
+                </div>
+                <p class="hero-subtitle">
+                    <span id="typing-text"></span><span class="cursor">|</span>
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 16 14"/></svg>
+                        Explore My World
+                    </a>
+                    <a href="#about" class="btn btn-outline">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Learn More
+                    </a>
+                </div>
+                <div class="hero-tagline">
+                    “Inspired by calm worlds & complex systems”
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="mouse-wheel"></div>
+            </div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+    <section id="about">
+        <div class="section-container">
+            <div class="section-label"><span>01</span> About Me</div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>A curious mind with a passion for <span class="text-accent">building things</span>.</h2>
+                    <p>
+                        I'm a first-year Computer Science student specializing in Data Science. I thrive at the
+                        intersection of technology and creativity — building interactive experiences, exploring
+                        machine learning, and crafting clean, meaningful code.
+                    </p>
+                    <p>
+                        When I'm not coding, you'll find me exploring nature, sketching ideas, or diving into
+                        the world of anime and art. I believe the best work comes from a calm mind and relentless
+                        curiosity.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Projects Built</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Technologies</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Curiosity</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="about-card">
+                        <div class="card-icon">🌿</div>
+                        <h3>Currently Learning</h3>
+                        <p>Data Structures, Machine Learning, Web Development, Three.js</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="card-icon">🎯</div>
+                        <h3>Goals for 2026</h3>
+                        <p>Contribute to open source, build AI-powered projects, and master React</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ SKILLS ═══════════════════════ -->
+    <section id="skills">
+        <div class="section-container">
+            <div class="section-label"><span>02</span> My Skills</div>
+            <h2 class="section-title">Technologies I work with</h2>
+            <div class="skills-grid">
+                <div class="skill-card" data-skill="python">
+                    <div class="skill-icon">🐍</div>
+                    <h3>Python</h3>
+                    <p>Data analysis, scripting, and ML</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill: 80%"></div></div>
+                </div>
+                <div class="skill-card" data-skill="javascript">
+                    <div class="skill-icon">⚡</div>
+                    <h3>JavaScript</h3>
+                    <p>Interactive web experiences</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill: 75%"></div></div>
+                </div>
+                <div class="skill-card" data-skill="react">
+                    <div class="skill-icon">⚛️</div>
+                    <h3>React</h3>
+                    <p>Component-driven UIs</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill: 65%"></div></div>
+                </div>
+                <div class="skill-card" data-skill="threejs">
+                    <div class="skill-icon">🎮</div>
+                    <h3>Three.js</h3>
+                    <p>3D web graphics & animations</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill: 55%"></div></div>
+                </div>
+                <div class="skill-card" data-skill="html-css">
+                    <div class="skill-icon">🎨</div>
+                    <h3>HTML / CSS</h3>
+                    <p>Semantic markup & modern styling</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill: 85%"></div></div>
+                </div>
+                <div class="skill-card" data-skill="git">
+                    <div class="skill-icon">🔀</div>
+                    <h3>Git & GitHub</h3>
+                    <p>Version control & collaboration</p>
+                    <div class="skill-bar"><div class="skill-fill" style="--fill: 70%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ PROJECTS ═══════════════════════ -->
+    <section id="projects">
+        <div class="section-container">
+            <div class="section-label"><span>03</span> Projects</div>
+            <h2 class="section-title">Things I've built</h2>
+            <div class="projects-grid">
+                <div class="project-card featured">
+                    <div class="project-number">01</div>
+                    <h3>Interactive Data Dashboard</h3>
+                    <p>A real-time data visualization dashboard built with Python and Plotly, featuring dynamic charts and filter controls.</p>
+                    <div class="project-tags">
+                        <span>Python</span><span>Plotly</span><span>Data Viz</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-number">02</div>
+                    <h3>Portfolio Website</h3>
+                    <p>This very website — designed and developed from scratch with a nature-inspired aesthetic and smooth animations.</p>
+                    <div class="project-tags">
+                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+    <section id="contact">
+        <div class="section-container contact-container">
+            <div class="section-label"><span>04</span> Contact</div>
+            <h2 class="contact-title">Let's create something <span class="text-accent">beautiful</span> together.</h2>
+            <p class="contact-subtitle">I'm always open to new opportunities, collaborations, or just a friendly chat.</p>
+            <a href="mailto:ranearyan927@gmail.com" class="btn btn-primary btn-lg">Get In Touch</a>
+            <div class="contact-socials">
+                <a href="https://github.com/dreameterftw" class="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/aryan-rane-order66/" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    <span style="position: absolute; font-size: 10px; top: -10px; right: -5px;">🔗</span>
+                </a>
+                <a href="https://www.instagram.com/_aryanrane/" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <footer>
+        <p>Designed & built by <strong>Aryan Rane</strong> · © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
