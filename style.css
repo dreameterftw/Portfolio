@@ -643,27 +643,23 @@ em { font-family: var(--font-serif); font-style: italic; color: var(--white-dim)
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    animation: spin-slow 18s linear infinite;
+    /* no animation — letters are repositioned per-frame by JS */
     transform-origin: 50% 50%;
     cursor: pointer;
-    transition: animation-duration 0.4s ease;
-}
-
-.circular-text:hover {
-    animation-duration: 4s;
 }
 
 .circular-text span {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 0;
+    top: 0;
     font-family: var(--font-mono);
     font-size: 10.5px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(14, 14, 14, 0.6);
-    transform-origin: 0 0;
     line-height: 1;
+    white-space: pre;
+    transform-origin: 0 0;
 }
 
 .circular-center {
@@ -676,9 +672,4 @@ em { font-family: var(--font-serif); font-style: italic; color: var(--white-dim)
     color: var(--black);
     pointer-events: none;
     user-select: none;
-}
-
-@keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
 }

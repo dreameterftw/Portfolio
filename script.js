@@ -158,36 +158,61 @@ document.addEventListener('DOMContentLoaded', () => {
             rafId = requestAnimationFrame(animate);
         });
     })();
+    // ─── Circular Text ───
     const circularEl = document.getElementById('circularText');
     if (circularEl) {
         const text = 'Get in touch · Available for work · ';
         const letters = Array.from(text);
-        const radius = 58; // px — distance of letters from centre
-        const cx = 70;     // half of wrapper width (140px)
-        const cy = 70;     // half of wrapper height
+        const radius = 58;
+        const cx = 70;
+        const cy = 70;
 
-        letters.forEach((letter, i) => {
-            const angle = (360 / letters.length) * i - 90; // start from top
-            const rad = (angle * Math.PI) / 180;
-            const x = cx + radius * Math.cos(rad);
-            const y = cy + radius * Math.sin(rad);
-
+        // Build spans once — statically positioned, no CSS rotation on the container
+        const spans = letters.map((letter, i) => {
             const span = document.createElement('span');
             span.textContent = letter === ' ' ? '\u00A0' : letter;
-            // Position: translate to (x, y) then rotate the letter to face outward
-            span.style.transform =
-                `translate(${x}px, ${y}px) rotate(${angle + 90}deg)`;
-            span.style.marginLeft = '-0.3em'; // tighten spacing
             circularEl.appendChild(span);
+            return span;
         });
 
-        // Speed up on hover, back to normal on leave
-        circularEl.addEventListener('mouseenter', () => {
-            circularEl.style.animationDuration = '4s';
-        });
-        circularEl.addEventListener('mouseleave', () => {
-            circularEl.style.animationDuration = '18s';
-        });
+        // Animate: step the angle forward each frame, recompute each letter's position
+        let angle = 0;       // current rotation offset in degrees
+        let speed = 30;      // deg/s
+        let targetSpeed = 30;
+        const SMOOTH_TAU = 0.3;
+        let lastTs = null;
+
+        const positionSpans = (offsetDeg) => {
+            spans.forEach((span, i) => {
+                const deg = (360 / letters.length) * i - 90 + offsetDeg;
+                const rad = (deg * Math.PI) / 180;
+                const x = cx + radius * Math.cos(rad);
+                const y = cy + radius * Math.sin(rad);
+                span.style.transform =
+                    `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${deg + 90}deg)`;
+            });
+        };
+
+        // Initial placement
+        positionSpans(0);
+
+        const animate = (ts) => {
+            if (lastTs === null) lastTs = ts;
+            const dt = Math.min((ts - lastTs) / 1000, 0.1);
+            lastTs = ts;
+
+            const ease = 1 - Math.exp(-dt / SMOOTH_TAU);
+            speed += (targetSpeed - speed) * ease;
+            angle = (angle + speed * dt) % 360;
+
+            positionSpans(angle);
+            requestAnimationFrame(animate);
+        };
+
+        circularEl.addEventListener('mouseenter', () => { targetSpeed = 120; });
+        circularEl.addEventListener('mouseleave', () => { targetSpeed = 30; });
+
+        requestAnimationFrame(animate);
     }
 
 });
