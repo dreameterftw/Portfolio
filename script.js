@@ -158,61 +158,49 @@ document.addEventListener('DOMContentLoaded', () => {
             rafId = requestAnimationFrame(animate);
         });
     })();
-    // ─── Circular Text ───
-    const circularEl = document.getElementById('circularText');
-    if (circularEl) {
-        const text = 'Get in touch · Available for work · ';
-        const letters = Array.from(text);
-        const radius = 58;
-        const cx = 70;
-        const cy = 70;
+    // ─── Typewriter rotating word (contact section) ───
+    (() => {
+        const el = document.getElementById('rotatingWord');
+        if (!el) return;
 
-        // Build spans once — statically positioned, no CSS rotation on the container
-        const spans = letters.map((letter, i) => {
-            const span = document.createElement('span');
-            span.textContent = letter === ' ' ? '\u00A0' : letter;
-            circularEl.appendChild(span);
-            return span;
-        });
+        const words = ['quiet', 'precise', 'honest', 'focused', 'lasting', 'human'];
+        let wordIdx   = 0;
+        let charIdx   = 0;
+        let deleting  = false;
+        const TYPE_SPEED   = 90;   // ms per char while typing
+        const DELETE_SPEED = 55;   // ms per char while deleting
+        const HOLD_MS      = 1800; // pause at full word
 
-        // Animate: step the angle forward each frame, recompute each letter's position
-        let angle = 0;       // current rotation offset in degrees
-        let speed = 30;      // deg/s
-        let targetSpeed = 30;
-        const SMOOTH_TAU = 0.3;
-        let lastTs = null;
+        const tick = () => {
+            const word = words[wordIdx];
 
-        const positionSpans = (offsetDeg) => {
-            spans.forEach((span, i) => {
-                const deg = (360 / letters.length) * i - 90 + offsetDeg;
-                const rad = (deg * Math.PI) / 180;
-                const x = cx + radius * Math.cos(rad);
-                const y = cy + radius * Math.sin(rad);
-                span.style.transform =
-                    `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${deg + 90}deg)`;
-            });
+            if (!deleting) {
+                // Type forward
+                charIdx++;
+                el.textContent = word.slice(0, charIdx);
+                if (charIdx === word.length) {
+                    // Finished typing — hold, then start deleting
+                    deleting = true;
+                    setTimeout(tick, HOLD_MS);
+                    return;
+                }
+                setTimeout(tick, TYPE_SPEED);
+            } else {
+                // Delete backward
+                charIdx--;
+                el.textContent = word.slice(0, charIdx);
+                if (charIdx === 0) {
+                    deleting = false;
+                    wordIdx  = (wordIdx + 1) % words.length;
+                    setTimeout(tick, TYPE_SPEED);
+                    return;
+                }
+                setTimeout(tick, DELETE_SPEED);
+            }
         };
 
-        // Initial placement
-        positionSpans(0);
-
-        const animate = (ts) => {
-            if (lastTs === null) lastTs = ts;
-            const dt = Math.min((ts - lastTs) / 1000, 0.1);
-            lastTs = ts;
-
-            const ease = 1 - Math.exp(-dt / SMOOTH_TAU);
-            speed += (targetSpeed - speed) * ease;
-            angle = (angle + speed * dt) % 360;
-
-            positionSpans(angle);
-            requestAnimationFrame(animate);
-        };
-
-        circularEl.addEventListener('mouseenter', () => { targetSpeed = 120; });
-        circularEl.addEventListener('mouseleave', () => { targetSpeed = 30; });
-
-        requestAnimationFrame(animate);
-    }
+        // Start after a short delay so the page feels settled
+        setTimeout(tick, 1200);
+    })();
 
 });
