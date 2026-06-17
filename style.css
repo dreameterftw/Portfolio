@@ -291,25 +291,64 @@ em { font-family: var(--font-serif); font-style: italic; color: var(--white-dim)
 }
 
 /* ═══════════════════════════════════════════════════
-   MARQUEE
+   TICKER  (infinite scroll strip)
    ═══════════════════════════════════════════════════ */
-.marquee {
+.ticker {
     border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
     background: var(--black-rich);
-    padding: 24px;
-    position: relative; z-index: 2;
+    padding: 20px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    cursor: default;
+    /* fade edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image:         linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
-.marquee-inner {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    column-gap: 40px; row-gap: 12px;
+
+.ticker__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    user-select: none;
+}
+
+.ticker__list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.ticker__item {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
     font-family: var(--font-serif);
     font-style: italic;
-    font-size: 20px;
+    font-size: clamp(18px, 2.5vw, 24px);
     color: var(--grey-light);
+    padding: 0 32px;
+    transition: color 0.3s ease;
 }
-@media (min-width: 768px) { .marquee-inner { font-size: 24px; } }
-.marquee-inner .sep { color: var(--grey-mid); font-style: normal; }
+
+.ticker__item:hover { color: var(--white); }
+
+.ticker__sep {
+    color: var(--grey-dark);
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 0 8px;
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ticker__track { transform: translate3d(0,0,0) !important; }
+}
 
 /* ═══════════════════════════════════════════════════
    ABOUT

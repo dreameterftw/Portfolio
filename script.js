@@ -63,7 +63,101 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // ─── Circular Text ───
+    // ─── Infinite Ticker ───
+    (() => {
+        const ITEMS = [
+            'Data Science',
+            'Product Design',
+            'Full-Stack',
+            'AI Tooling',
+            'Open to Work',
+            'Systems Thinking',
+            'TypeScript',
+            'React',
+            'Mumbai, IN',
+        ];
+        const SEP = '✦';
+        const SPEED = 90;       // px/s default
+        const SMOOTH_TAU = 0.25; // easing time constant (seconds)
+
+        const ticker   = document.getElementById('ticker');
+        const track    = document.getElementById('tickerTrack');
+        if (!ticker || !track) return;
+
+        // Build one sequence list
+        const buildList = (ariaHidden) => {
+            const ul = document.createElement('ul');
+            ul.className = 'ticker__list';
+            if (ariaHidden) ul.setAttribute('aria-hidden', 'true');
+            ITEMS.forEach((label, i) => {
+                const li = document.createElement('li');
+                li.className = 'ticker__item';
+                li.textContent = label;
+                ul.appendChild(li);
+                // separator after every item (including last — gap before next copy)
+                const sep = document.createElement('span');
+                sep.className = 'ticker__sep';
+                sep.textContent = SEP;
+                sep.setAttribute('aria-hidden', 'true');
+                ul.appendChild(sep);
+            });
+            return ul;
+        };
+
+        // Seed with 2 copies; we'll add more once we measure
+        const firstList = buildList(false);
+        track.appendChild(firstList);
+        track.appendChild(buildList(true));
+
+        let seqWidth   = 0;
+        let offset     = 0;
+        let velocity   = SPEED;
+        let target     = SPEED;
+        let lastTs     = null;
+        let rafId      = null;
+
+        const ensureCopies = () => {
+            seqWidth = firstList.getBoundingClientRect().width;
+            if (seqWidth === 0) return;
+            const needed = Math.ceil(ticker.clientWidth / seqWidth) + 2;
+            while (track.children.length < needed) {
+                track.appendChild(buildList(true));
+            }
+        };
+
+        const animate = (ts) => {
+            if (lastTs === null) lastTs = ts;
+            const dt = Math.min((ts - lastTs) / 1000, 0.1); // cap at 100ms
+            lastTs = ts;
+
+            // Smooth velocity toward target (same exponential easing as LogoLoop)
+            const ease = 1 - Math.exp(-dt / SMOOTH_TAU);
+            velocity += (target - velocity) * ease;
+
+            if (seqWidth > 0) {
+                offset = ((offset + velocity * dt) % seqWidth + seqWidth) % seqWidth;
+                track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+            }
+
+            rafId = requestAnimationFrame(animate);
+        };
+
+        // Hover: pause
+        ticker.addEventListener('mouseenter', () => { target = 0; });
+        ticker.addEventListener('mouseleave', () => { target = SPEED; });
+
+        // Measure + start
+        const ro = window.ResizeObserver
+            ? new ResizeObserver(ensureCopies)
+            : null;
+        if (ro) ro.observe(ticker);
+
+        // Wait one frame for layout
+        requestAnimationFrame(() => {
+            ensureCopies();
+            rafId = requestAnimationFrame(animate);
+        });
+    })();
     const circularEl = document.getElementById('circularText');
     if (circularEl) {
         const text = 'Get in touch · Available for work · ';
