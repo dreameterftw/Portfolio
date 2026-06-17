@@ -62,4 +62,38 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // ─── Circular Text ───
+    const circularEl = document.getElementById('circularText');
+    if (circularEl) {
+        const text = 'Get in touch · Available for work · ';
+        const letters = Array.from(text);
+        const radius = 58; // px — distance of letters from centre
+        const cx = 70;     // half of wrapper width (140px)
+        const cy = 70;     // half of wrapper height
+
+        letters.forEach((letter, i) => {
+            const angle = (360 / letters.length) * i - 90; // start from top
+            const rad = (angle * Math.PI) / 180;
+            const x = cx + radius * Math.cos(rad);
+            const y = cy + radius * Math.sin(rad);
+
+            const span = document.createElement('span');
+            span.textContent = letter === ' ' ? '\u00A0' : letter;
+            // Position: translate to (x, y) then rotate the letter to face outward
+            span.style.transform =
+                `translate(${x}px, ${y}px) rotate(${angle + 90}deg)`;
+            span.style.marginLeft = '-0.3em'; // tighten spacing
+            circularEl.appendChild(span);
+        });
+
+        // Speed up on hover, back to normal on leave
+        circularEl.addEventListener('mouseenter', () => {
+            circularEl.style.animationDuration = '4s';
+        });
+        circularEl.addEventListener('mouseleave', () => {
+            circularEl.style.animationDuration = '18s';
+        });
+    }
+
 });
