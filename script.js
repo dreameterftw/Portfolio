@@ -71,8 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── Reveal-on-scroll ───
     const revealEls = document.querySelectorAll(
-        '.about-body p, .skill-card, .work-list li, .stat, .contact-link, ' +
-        '.currently-item, .timeline-item'
+        '.about-body p, .skill-card, .work-list li, .stat, .contact-link, .currently-item'
     );
     revealEls.forEach((el) => {
         el.style.opacity = '0';
